@@ -1,5 +1,5 @@
 4
 Sports Gala,     12/12/2024,     12:00pm,     Gaddafi Stadium, 9, 50, 1,  03312009803, , ,
 Tech Event,   30/12/2024,   05:00pm,   Alhamra Hall, 0, 46, 1,  ,03234418796, , love love it!
-Disease Free Uet,   10/01/2025,   02:00pm,   Uet Lahore, 5, 35, 1,  03314996184,such a great event.
+Disease Free Uet,   10/01/2025,   02:00pm,   Uet Lahore, 0, 35, 0, ,such a great event.
 Charity Run,   01/01/2025,   08:00am,   Gaddafi Stadium, 0, 75, 1,  03311234567, ,
