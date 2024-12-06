@@ -17,7 +17,6 @@ struct events{
     int max_capacity;
 };
 
-
                ////   FUNCTIONS   ////
 
 void declarearray(events array[], int& event_count, const int max_events);
@@ -44,6 +43,7 @@ bool isnumericphoneno(string phoneno);
 bool isvalidphoneno(string phoneno);
 bool isvaliddate(string date);
 bool isvalidtime(string time);
+int stringtointeger(string option);
 bool savedata(events array[], int& event_count, const int max_events);
 bool loaddata(events array[], int& event_count, const int max_events);
 
@@ -259,14 +259,21 @@ void createevent(events array[], int& event_count, const int max_events){
  // function of editing an event
 void editevent(events array[], int& event_count, const int max_events){
     int eventnum,newparticipants;
-    string newname,newdate,newtime,newlocation;
+    string newname,newdate,newtime,newlocation,input;
 
     if(event_count==0){
        cout<<"No events available to edit."<<endl;
        return;
     }
     cout<<"Enter event number want to edit: ";
-    cin>>eventnum;
+    cin>>input;
+
+    if(!isnumericphoneno(input)){
+        cout<<"Invalid Event Number"<<endl;
+        return ;
+    }
+    eventnum= stringtointeger(input);
+
 
     if(eventnum<1 ||eventnum>event_count){
         cout<<"Invalid Event Number"<<endl;
@@ -351,12 +358,20 @@ void editevent(events array[], int& event_count, const int max_events){
 void deleteevent(events array[], int& event_count, const int max_events){
     int eventnum;
     char choice;
+    string input;
     if(event_count==0){
        cout<<"No events available to delete."<<endl;
        return ;
     }
     cout<<"Enter event number want to delete: ";
-    cin>>eventnum;
+    cin>>input;
+
+     if(!isnumericphoneno(input)){
+        cout<<"Invalid Event Number"<<endl;
+        return ;
+    }
+    eventnum= stringtointeger(input);
+
 
     if(eventnum<1 ||eventnum>event_count){
         cout<<"Invalid Event Number"<<endl;
@@ -421,6 +436,7 @@ void displayusers(events array[], int& event_count, const int max_events){
                 if(!array[i].registration[j].empty())
                 cout<<j+1 <<" . "<<array[i].registration[j]<<endl;
             }
+            cout<<endl;
         }
     }
 }
@@ -573,6 +589,24 @@ bool isvalidtime(string time){
     return true;
 }
 
+int stringtointeger(string option){
+    int result=0;
+    bool isneg=false;
+    int index=0;
+    if(option[0]=='-'){
+        isneg=true;
+        index=1;
+    }
+    for(int i=index; i<option.length();i++){
+        int digit= option[i]-'0';
+        result= result*10 + digit;
+    }
+    if(isneg){
+        result=-result;
+    }
+    return result;
+}
+
 // function for displaying events
 void displayevents(events array[], int& event_count, const int max_events){
 
@@ -608,7 +642,7 @@ void displayevents(events array[], int& event_count, const int max_events){
 // function for user registration for events
 void userregistration(events array[], int& event_count, const int max_events){
     int eventnum;
-    string firstname,lastname,phoneno;
+    string firstname,lastname,phoneno,input;
 
     for(int i=0;i<70;i++){
         cout<<"=";
@@ -625,8 +659,14 @@ void userregistration(events array[], int& event_count, const int max_events){
        return ;
     }
     cout<<"Enter event number you want to register for: ";
-    cin>>eventnum;
+    cin>>input;
     cin.ignore();
+
+    if(!isnumericphoneno(input)){
+        cout<<"Invalid Event Number"<<endl;
+        return ;
+    }
+    eventnum= stringtointeger(input);
 
     if(eventnum<1 ||eventnum>event_count){
         cout<<"Invalid Event Number"<<endl;
@@ -718,7 +758,7 @@ void userregistration(events array[], int& event_count, const int max_events){
  // function for the booking of tickets
 void bookingoftickets(events array[], int& event_count, const int max_events){
     int eventnum,ticket_count;
-    string phoneno;
+    string phoneno,input;
     for(int i=0;i<70;i++){
        cout<<"=";
     }
@@ -734,8 +774,14 @@ void bookingoftickets(events array[], int& event_count, const int max_events){
        return ;
     }
     cout<<"Enter event number you want to book tickets for: ";
-    cin>>eventnum;
+    cin>>input;
     cin.ignore();
+
+    if(!isnumericphoneno(input)){
+        cout<<"Invalid Event Number"<<endl;
+        return ;
+    }
+    eventnum= stringtointeger(input);
 
     if(eventnum<1 ||eventnum>event_count){
         cout<<"Invalid Event Number"<<endl;
@@ -805,11 +851,11 @@ void userfeedback(events array[], int& event_count, const int max_events){
     cin>>input;
     cin.ignore();
 
-    if(isvalidphoneno(input)){
+    if(!isnumericphoneno(input)){
         cout<<"Invalid Event Number"<<endl;
         return ;
     }
-    eventnum= stoi(input);
+    eventnum= stringtointeger(input);
     
     if(eventnum<1 ||eventnum>event_count){
         cout<<"Invalid Event Number"<<endl;
@@ -995,7 +1041,7 @@ bool savedata(events array[], int& event_count, const int max_events){
                fout<<",";
            }
 
-        fout<<","<<array[i].feedback<<endl;
+        fout<<" "<<array[i].feedback<<endl;
  }
 
    fout.close();
